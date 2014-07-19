@@ -52,6 +52,8 @@ char buf_time[40];
 struct stat buf;
 struct passwd *usr;    //从该结构体中获取文件所有这的用户名
 struct group *grp;     //从该结构体中获取文件所有者所属组的组名
+char name_wj[30];
+int i,j;
 //获取文件类型
 if(stat(name,&buf) == -1)
 {
@@ -121,7 +123,20 @@ else if(S_ISSOCK(buf.st_mode))
 	strcpy(buf_time,ctime(&buf.st_atime));
 	buf_time[strlen(buf_time)-1] = '\0';     //换掉字符串自带的\n
 	printf("%s",buf_time);
-	printf("  %s\n",name);
+
+		for(i=0,j=0;i<strlen(name);i++)
+		{
+			if(name[i] == '/')
+			      
+			{
+			j=0;
+			continue;
+			}
+			name_wj[j++] = name[i];
+				 
+		}
+	name_wj[j]='\0';
+	printf("  %s\n",name_wj);
 }
 
 
@@ -209,10 +224,10 @@ int i=0,j;
 			}
 			else if((filename[j][0] < 'a') && filename[j+1][0] > 'Z')
 			{
-				filename[j+1][0]=-32;
+				filename[j+1][0]=filename[j+1][0]-32;
 				if((filename[j][0] > filename[j+1][0]))
 				{
-				filename[j+1][0]=+32;
+				filename[j+1][0]=filename[j+1][0]+32;
 				strcpy(temp,filename[j]);
 				temp[strlen(filename[j])]='\0';
 				strcpy(filename[j],filename[j+1]);
@@ -225,10 +240,10 @@ int i=0,j;
 
 			else if((filename[j][0] > 'Z') && (filename[j+1][0] <'a'))
 			{
-				filename[j][0]=-32;
+				filename[j][0]=filename[j][0]-32;
 				if((filename[j][0] > filename[j+1][0]))
 				{
-				filename[j][0]=+32;
+				filename[j][0]=filename[j][0]+32;
 				strcpy(temp,filename[j]);
 				temp[strlen(filename[j])]='\0';
 				strcpy(filename[j],filename[j+1]);
@@ -278,6 +293,7 @@ int i=0,j;
 			//printf("%s\n",filename[i]);
 		display_single(filename[i]);
 		}
+		printf("\n");
 		
 	}
 
