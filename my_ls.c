@@ -3,15 +3,15 @@
  *
  *       Filename:  my_ls.c
  *
- *    Description:  
+ *   	 Description: ls的简单命令实现 
  *
  *        Version:  1.0
  *        Created:  07/16/2014 05:06:19 PM
  *       Revision:  none
  *       Compiler:  gcc
  *
- *         Author:  Hurley (LiuHuan), liuhuan1992@gmail.com
- *        Company:  Class 1107 of Computer Science and Technology
+ *         Author:  Hurley (miaoshuai)
+ *        
  *
  * =====================================================================================
  */
@@ -319,34 +319,31 @@ int i=0,j;
 
 	else                                //-R
 	{
-		
+		display_dir(0,path);
+		printf("\n\n");
 		for(i=0;i<count;i++)
 		{
 		if(filename[i][0] != '.')                     //获得每个文件名的完整路径
 		{
-		      printf("./%s:\n",filename[i]);
+		     // printf("%s:\n",filename[i]);
 		strcpy(temp,path);
 		strcat(path,"/");
 		strcat(path,filename[i]);
 		
 		if(stat(path,&buf) == 0)
 		{
-		
+					
 			if(S_ISDIR(buf.st_mode))
 			{
-			//printf("./%s:\n",filename[i]);
+			printf("./%s:\n",path);
 			
-			
-			
-			
-			display_dir(0,path);
 			display_dir(3,path);
-			printf("\n\n\n");
+			
 			
 			}
 
-			else
-			      printf("\n\n");
+		
+			   
 		}
 		
 		strcpy(path,temp);
